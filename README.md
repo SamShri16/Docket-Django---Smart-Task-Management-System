@@ -179,12 +179,12 @@ http://127.0.0.1:8000/
 ## 👨‍💻 Developer
 
 **Samarth Shrivastava**  
-B.Tech Computer Science Engineering — 4th Semester  
+B.Tech Computer Science Engineering — 4th Semester (171)
 LNCT University (SOCST), Bhopal  
 
 ---
 
-## 📝 Project Description (for submission)
+## 📝 Project Description
 
 > Docket is a full-stack smart task management web application that solves the problem of organizing academic and personal tasks efficiently. It is built using Python (Django framework) for the backend, SQLite for database storage, and HTML5/CSS3 for the responsive frontend. The system supports user authentication (register/login), complete CRUD operations for tasks and categories, priority levels (High/Medium/Low), status tracking (To Do → In Progress → Done), search and filter functionality, and a visual statistics dashboard.
 
