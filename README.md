@@ -1,6 +1,6 @@
 # 📋 Docket — Smart Task Management System
 
-A full-stack web application for managing daily tasks, built with **Python (Django)** as a final project for the **4th Semester Python Full Stack Web Development** course at LNCT University, Bhopal.
+A full-stack web application for managing daily tasks, built with **Python (Django)** as a part of the **4th Semester Elective Python Full Stack Web Development** course at LNCT University, Bhopal.
 
 ---
 
@@ -172,8 +172,7 @@ http://127.0.0.1:8000/
 
 ## 📸 Screenshots
 
-> *(Add screenshots of your app here after running it locally)*  
-> Suggested: Home page, Dashboard, Task List, Add Task form
+
 
 ---
 
@@ -182,7 +181,6 @@ http://127.0.0.1:8000/
 **Samarth Shrivastava**  
 B.Tech Computer Science Engineering — 4th Semester  
 LNCT University (SOCST), Bhopal  
-LinkedIn Campus Ambassador
 
 ---
 
