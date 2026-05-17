@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Docket</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="auth-wrapper">
+    <div class="auth-box">
+        <h2>📋 Docket</h2>
+        <p class="subtitle">Create a new account</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="form-error">{{ field.errors.0 }}</div>
+                {% endif %}
+                {% if field.help_text %}
+                    <small style="color:#9ca3af; font-size:12px;">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary" style="width:100%;">Create Account</button>
+        </form>
+
+        <p style="text-align:center; margin-top:20px; font-size:14px; color:#6b7280;">
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

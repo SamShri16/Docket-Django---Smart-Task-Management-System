@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>My Profile</h2>
+</div>
+
+<div class="card" style="max-width: 500px;">
+    <table style="width:100%; border-collapse:collapse;">
+        <tr>
+            <td style="padding: 10px 0; color:#6b7280; width:140px; font-size:14px;">Username</td>
+            <td><strong>{{ user.username }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 0; color:#6b7280; font-size:14px;">Email</td>
+            <td>{{ user.email|default:"Not set" }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 0; color:#6b7280; font-size:14px;">Joined</td>
+            <td>{{ user.date_joined|date:"d M Y" }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 0; color:#6b7280; font-size:14px;">Total Tasks</td>
+            <td>{{ total_tasks }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 0; color:#6b7280; font-size:14px;">Completed</td>
+            <td>{{ done_tasks }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 0; color:#6b7280; font-size:14px;">Pending</td>
+            <td>{{ pending_tasks }}</td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 20px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+
+{% endblock %}

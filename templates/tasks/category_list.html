@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>Categories</h2>
+    <a href="{% url 'category_create' %}" class="btn btn-primary">+ Add Category</a>
+</div>
+
+<div class="card">
+    {% if categories %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Color</th>
+                <th>Name</th>
+                <th>Tasks</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in categories %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <span style="display:inline-block; width:20px; height:20px; border-radius:50%; background:{{ cat.color }}; vertical-align:middle;"></span>
+                </td>
+                <td>{{ cat.name }}</td>
+                <td>{{ cat.task_set.count }} task(s)</td>
+                <td>
+                    <a href="{% url 'category_delete' cat.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>No categories yet.</p>
+        <a href="{% url 'category_create' %}" class="btn btn-primary">+ Add Category</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

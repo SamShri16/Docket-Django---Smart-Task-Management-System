@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} Task{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>{{ action }} Task</h2>
+    <a href="{% url 'task_list' %}" class="btn btn-secondary">← Back to Tasks</a>
+</div>
+
+<div class="card" style="max-width: 580px;">
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="form-error">{{ field.errors.0 }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div style="margin-top: 10px; display: flex; gap: 10px;">
+            <button type="submit" class="btn btn-primary">{{ action }} Task</button>
+            <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docket | Smart Task Manager</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="home-wrapper">
+    <div class="home-box">
+        <h1>📋 Docket</h1>
+        <p>
+            A simple and smart task management system. 
+            Create tasks, set priorities, track your progress — 
+            all in one place.
+        </p>
+        <div class="home-btns">
+            <a href="{% url 'register' %}" class="btn btn-white">Get Started</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-white">Login</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

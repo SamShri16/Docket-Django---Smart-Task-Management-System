@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}My Tasks{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>My Tasks</h2>
+    <a href="{% url 'task_create' %}" class="btn btn-primary">+ Add New Task</a>
+</div>
+
+<!-- Filter Bar -->
+<form method="get" class="filter-bar">
+    <input type="text" name="search" placeholder="Search tasks..." value="{{ search }}">
+    <select name="status">
+        <option value="">All Status</option>
+        <option value="todo"        {% if selected_status == 'todo' %}selected{% endif %}>To Do</option>
+        <option value="in_progress" {% if selected_status == 'in_progress' %}selected{% endif %}>In Progress</option>
+        <option value="done"        {% if selected_status == 'done' %}selected{% endif %}>Done</option>
+    </select>
+    <select name="priority">
+        <option value="">All Priority</option>
+        <option value="high"   {% if selected_priority == 'high' %}selected{% endif %}>High</option>
+        <option value="medium" {% if selected_priority == 'medium' %}selected{% endif %}>Medium</option>
+        <option value="low"    {% if selected_priority == 'low' %}selected{% endif %}>Low</option>
+    </select>
+    <button type="submit" class="btn btn-secondary btn-sm">Filter</button>
+    {% if search or selected_status or selected_priority %}
+        <a href="{% url 'task_list' %}" class="btn btn-sm" style="background:#e5e7eb;color:#374151;">Clear</a>
+    {% endif %}
+</form>
+
+<!-- Task Table -->
+<div class="card">
+    {% if tasks %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <a href="{% url 'task_detail' task.pk %}">
+                        {% if task.status == 'done' %}<s style="color:#9ca3af;">{{ task.title }}</s>
+                        {% else %}{{ task.title }}{% endif %}
+                    </a>
+                </td>
+                <td><span class="badge badge-{{ task.priority }}">{{ task.priority|title }}</span></td>
+                <td>
+                    {% if task.status == 'todo' %}<span class="badge badge-todo">To Do</span>
+                    {% elif task.status == 'in_progress' %}<span class="badge badge-progress">In Progress</span>
+                    {% else %}<span class="badge badge-done">Done</span>{% endif %}
+                </td>
+                <td>{{ task.category.name|default:"—" }}</td>
+                <td>{{ task.due_date|default:"—" }}</td>
+                <td>
+                    <a href="{% url 'task_update' task.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>No tasks found.</p>
+        <a href="{% url 'task_create' %}" class="btn btn-primary">+ Add Task</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

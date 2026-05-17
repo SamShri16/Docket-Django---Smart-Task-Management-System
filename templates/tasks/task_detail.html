@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>Task Detail</h2>
+    <div>
+        <a href="{% url 'task_update' task.pk %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'task_list' %}" class="btn btn-secondary">← Back</a>
+    </div>
+</div>
+
+<div class="card" style="max-width: 620px;">
+    <h3 style="margin-bottom: 20px; font-size: 20px;">
+        {% if task.status == 'done' %}<s style="color:#9ca3af;">{{ task.title }}</s>
+        {% else %}{{ task.title }}{% endif %}
+    </h3>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="padding: 8px 0; color: #6b7280; width: 130px; font-size: 14px;">Priority</td>
+            <td><span class="badge badge-{{ task.priority }}">{{ task.priority|title }}</span></td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Status</td>
+            <td>
+                {% if task.status == 'todo' %}<span class="badge badge-todo">To Do</span>
+                {% elif task.status == 'in_progress' %}<span class="badge badge-progress">In Progress</span>
+                {% else %}<span class="badge badge-done">Done</span>{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Category</td>
+            <td>{{ task.category.name|default:"None" }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Due Date</td>
+            <td>{{ task.due_date|default:"Not set" }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Created</td>
+            <td>{{ task.created_at|date:"d M Y, h:i A" }}</td>
+        </tr>
+    </table>
+
+    {% if task.description %}
+    <div style="margin-top: 20px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
+        <p style="color: #6b7280; font-size: 13px; margin-bottom: 6px;">Description</p>
+        <p>{{ task.description }}</p>
+    </div>
+    {% endif %}
+
+    <div style="margin-top: 20px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
+        <a href="{% url 'task_toggle' task.pk %}" class="btn btn-success">
+            {% if task.status == 'todo' %}▶ Mark as In Progress
+            {% elif task.status == 'in_progress' %}✔ Mark as Done
+            {% else %}↩ Reopen Task{% endif %}
+        </a>
+    </div>
+</div>
+
+{% endblock %}

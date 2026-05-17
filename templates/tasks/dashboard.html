@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>Welcome, {{ user.username }}! 👋</h2>
+    <a href="{% url 'task_create' %}" class="btn btn-primary">+ Add New Task</a>
+</div>
+
+<!-- Stats -->
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="num">{{ total }}</div>
+        <div class="label">Total Tasks</div>
+    </div>
+    <div class="stat-box yellow">
+        <div class="num">{{ todo }}</div>
+        <div class="label">To Do</div>
+    </div>
+    <div class="stat-box">
+        <div class="num">{{ in_progress }}</div>
+        <div class="label">In Progress</div>
+    </div>
+    <div class="stat-box green">
+        <div class="num">{{ done }}</div>
+        <div class="label">Completed</div>
+    </div>
+</div>
+
+<!-- Recent Tasks -->
+<div class="card">
+    <h3 style="margin-bottom: 15px;">Recent Tasks</h3>
+
+    {% if recent_tasks %}
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in recent_tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td><span class="badge badge-{{ task.priority }}">{{ task.priority|title }}</span></td>
+                <td>
+                    {% if task.status == 'todo' %}
+                        <span class="badge badge-todo">To Do</span>
+                    {% elif task.status == 'in_progress' %}
+                        <span class="badge badge-progress">In Progress</span>
+                    {% else %}
+                        <span class="badge badge-done">Done</span>
+                    {% endif %}
+                </td>
+                <td>{{ task.due_date|default:"—" }}</td>
+                <td><a href="{% url 'task_detail' task.pk %}" class="btn btn-secondary btn-sm">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>No tasks yet. Start by adding one!</p>
+        <a href="{% url 'task_create' %}" class="btn btn-primary">+ Add Task</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
